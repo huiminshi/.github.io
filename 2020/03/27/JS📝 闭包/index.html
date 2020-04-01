@@ -33,7 +33,7 @@
 <meta property="og:image" content="http://yoursite.com/2020/03/27/images/JS-%E9%97%AD%E5%8C%85/image-20200327145816027.png">
 <meta property="og:image" content="http://yoursite.com/2020/03/27/images/JS-%E9%97%AD%E5%8C%85/image-20200327153244764.png">
 <meta property="article:published_time" content="2020-03-27T10:42:57.245Z">
-<meta property="article:modified_time" content="2020-03-27T10:51:33.785Z">
+<meta property="article:modified_time" content="2020-03-29T04:31:07.681Z">
 <meta property="article:author" content="Aviva">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://yoursite.com/2020/03/27/images/JS-%E9%97%AD%E5%8C%85/image-20200327142245809.png">
@@ -191,10 +191,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-03-27 18:42:57 / Modified: 18:51:33" itemprop="dateCreated datePublished" datetime="2020-03-27T18:42:57+08:00">2020-03-27</time>
+              <time title="Created: 2020-03-27 18:42:57" itemprop="dateCreated datePublished" datetime="2020-03-27T18:42:57+08:00">2020-03-27</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-03-29 12:31:07" itemprop="dateModified" datetime="2020-03-29T12:31:07+08:00">2020-03-29</time>
+              </span>
 
           
 
@@ -250,6 +256,24 @@
 <p><img src="../images/JS-%E9%97%AD%E5%8C%85/image-20200327153244764.png" alt="image-20200327153244764"></p>
 <p>并且在变量所在的词法环境中修改变量的值。</p>
 <h3 id="闭包-Closure"><a href="#闭包-Closure" class="headerlink" title="闭包 Closure"></a>闭包 Closure</h3><p>闭包是指内部函数总是可以访问它所在的外部函数中声明的变量和参数，即使在它外部函数被返回之后。在 JS 中除 <code>new Function</code> 语法外的所有函数都是天生闭包。 这是因为 JavaScript 中的函数会自动通过隐藏的 <code>[[Environment]]</code> 属性记住它们被创建的位置，所以它们都可以访问外部变量。</p>
+<p>在 JS 中用 <code>new Function</code> 创建的函数的 <code>[[Environment]]</code> 属性指向的是全局词法环境，而不是函数所在的外部词法环境。因此，不能在 <code>new Function</code> 中直接使用外部变量，需要显式地参数传值，这样可以降低代码出错的可能，避免了使用压缩程序而产生冲突的问题。</p>
+<p>优点：</p>
+<ol>
+<li>闭包可以突破作用域链的限制，将函数内部的变量和方法传递到外部；</li>
+<li>避免全局变量的污染；</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>常驻在内存中，增加了内存的使用量；</li>
+<li>虽然闭包可以突破作用域链传到外部，但是这样传出来的变量不能被修改，这一问题可以通过函数属性来解决（如下）。</li>
+</ol>
+<p>如果变量位于外层的函数中，那么这个变量只能被这个函数和这个函数内部嵌套的函数修改，外部的函数无法修改它。此时可以通过利用函数属性，即将变量绑定到函数上，那么外部就也可以修改了。</p>
+<p>🌰 <code>count</code> 只可以被 <code>makeCounter</code> 和内部的函数修改</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">makeCounter</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> count = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> count++;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> counter = makeCounter();</span><br><span class="line"></span><br><span class="line">alert( counter() ); <span class="comment">// 0</span></span><br><span class="line">alert( counter() ); <span class="comment">// 1</span></span><br><span class="line">alert( counter() ); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+
+<p>使用函数属性来代替闭包。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">makeCounter</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">counter</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> counter.count++;</span><br><span class="line">    &#125;</span><br><span class="line">    counter.count = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> counter;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> counter = makeCounter();</span><br><span class="line">counter.count = <span class="number">10</span>;</span><br><span class="line">alter( counter() );<span class="comment">//10</span></span><br></pre></td></tr></table></figure>
+
 <h3 id="垃圾回收-Garbage-collection"><a href="#垃圾回收-Garbage-collection" class="headerlink" title="垃圾回收 Garbage collection"></a>垃圾回收 Garbage collection</h3><p>通常，函数调用完成后，会将词法环境和其中的所有变量从内存中删除。与 JavaScript 中的其他对象一样，词法环境仅在可达时才会被保留在内存中。</p>
 <p>但是，如果某个函数在执行结束后，它的这个词法环境仍然被引用，即依旧可达，那么它依旧会存在再变量中。</p>
 <p>🌰</p>
@@ -272,10 +296,13 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/03/25/JS%F0%9F%93%9D%20%E9%81%8D%E5%8E%86%E6%96%B9%E6%B3%95%E5%AF%B9%E6%AF%94/" rel="prev" title="JS📝 遍历方法对比">
-      <i class="fa fa-chevron-left"></i> JS📝 遍历方法对比
+    <a href="/2020/03/25/JS%F0%9F%93%9D%20%E7%BB%A7%E6%89%BF/" rel="prev" title="JS📝 继承">
+      <i class="fa fa-chevron-left"></i> JS📝 继承
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2020/03/27/JS%F0%9F%93%9D%20%E5%8F%98%E9%87%8F%E4%B8%8E%E5%B8%B8%E9%87%8F/" rel="next" title="JS📝 变量与常量">
+      JS📝 变量与常量 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -351,9 +378,13 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-count">6</span>
           <span class="site-state-item-name">posts</span>
         </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">tags</span>
       </div>
   </nav>
 </div>
