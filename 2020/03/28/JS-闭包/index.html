@@ -27,17 +27,17 @@
 <meta property="og:site_name" content="Aviva">
 <meta property="og:description" content="词法环境 Lexical Environment变量所有运行的 function、代码块 {...} 和整个脚本内部都有一个隐藏的关联对象——词法环境。 词法环境对象包括两部分：  环境记录（Environment Record） —— 一个存储所有局部变量作为其属性（包括一些其他信息，例如 this 的值）的对象。  对 外部词法环境 的引用，与外部代码相关联。    A “variable”">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://yoursite.com/2020/03/28/images/JS-%E9%97%AD%E5%8C%85/image-20200327142245809.png">
-<meta property="og:image" content="http://yoursite.com/2020/03/28/images/JS-%E9%97%AD%E5%8C%85/image-20200327143723405.png">
-<meta property="og:image" content="http://yoursite.com/2020/03/28/images/JS-%E9%97%AD%E5%8C%85/image-20200327144351451.png">
-<meta property="og:image" content="http://yoursite.com/2020/03/28/images/JS-%E9%97%AD%E5%8C%85/image-20200327145816027.png">
-<meta property="og:image" content="http://yoursite.com/2020/03/28/images/JS-%E9%97%AD%E5%8C%85/image-20200327153244764.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/28/JS-%E9%97%AD%E5%8C%85/images/JS-%E9%97%AD%E5%8C%85/image-20200327142245809.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/28/JS-%E9%97%AD%E5%8C%85/images/JS-%E9%97%AD%E5%8C%85/image-20200327143723405.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/28/JS-%E9%97%AD%E5%8C%85/images/JS-%E9%97%AD%E5%8C%85/image-20200327144351451.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/28/JS-%E9%97%AD%E5%8C%85/images/JS-%E9%97%AD%E5%8C%85/image-20200327145816027.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/28/JS-%E9%97%AD%E5%8C%85/images/JS-%E9%97%AD%E5%8C%85/image-20200327153244764.png">
 <meta property="article:published_time" content="2020-03-28T06:44:54.000Z">
-<meta property="article:modified_time" content="2020-04-01T06:20:40.969Z">
+<meta property="article:modified_time" content="2020-04-01T06:47:19.055Z">
 <meta property="article:author" content="Aviva">
 <meta property="article:tag" content="JavaScript">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2020/03/28/images/JS-%E9%97%AD%E5%8C%85/image-20200327142245809.png">
+<meta name="twitter:image" content="http://yoursite.com/2020/03/28/JS-%E9%97%AD%E5%8C%85/images/JS-%E9%97%AD%E5%8C%85/image-20200327142245809.png">
 
 <link rel="canonical" href="http://yoursite.com/2020/03/28/JS-%E9%97%AD%E5%8C%85/">
 
@@ -185,7 +185,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-04-01 14:20:40" itemprop="dateModified" datetime="2020-04-01T14:20:40+08:00">2020-04-01</time>
+                <time title="Modified: 2020-04-01 14:47:19" itemprop="dateModified" datetime="2020-04-01T14:47:19+08:00">2020-04-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -222,7 +222,7 @@
 <p><strong>一个“变量”实际上只是环境记录器的一个属性。获取或修改这个变量意味着获取或修改这个对象的属性。</strong></p>
 <p>词法环境仅仅是一个规范对象，不是实际存在的无法在代码中获取与操作，主要用于描述事物如何运作的对象。</p>
 <p>栗子🌰</p>
-<p><img src="../images/JS-%E9%97%AD%E5%8C%85/image-20200327142245809.png" alt="image-20200327142245809"></p>
+<p><img src="/2020/03/28/JS-%E9%97%AD%E5%8C%85/images/JS-%E9%97%AD%E5%8C%85/image-20200327142245809.png" alt="image-20200327142245809"></p>
 <p>左侧是一个全局代码，右侧是一个词法环境对象，方格表示环境记录，outer 表示外部引用。</p>
 <ol>
 <li>当脚本开始运行，词法环境预先填充了所有声明的变量。<ul>
@@ -235,20 +235,20 @@
 </ol>
 <h4 id="函数声明"><a href="#函数声明" class="headerlink" title="函数声明"></a>函数声明</h4><p>函数也是一个变量，不同的是，只要词法环境被创建，函数声明会立即变为可用的函数，即立即被初始化，所以可以在函数定义之前就使用它。</p>
 <p>🌰</p>
-<p><img src="../images/JS-%E9%97%AD%E5%8C%85/image-20200327143723405.png" alt="image-20200327143723405"></p>
+<p><img src="/2020/03/28/JS-%E9%97%AD%E5%8C%85/images/JS-%E9%97%AD%E5%8C%85/image-20200327143723405.png" alt="image-20200327143723405"></p>
 <p>但这不适用于函数表达式的形式，即  <code>let say = function(name)...</code> 这种方式于变量的情况一致。</p>
 <h4 id="内部与外部词法环境"><a href="#内部与外部词法环境" class="headerlink" title="内部与外部词法环境"></a>内部与外部词法环境</h4><p>当一个函数被调用时，会创建一个新的词法环境用以存储这个调用的局部变量和参数。</p>
 <p>🌰</p>
-<p><img src="../images/JS-%E9%97%AD%E5%8C%85/image-20200327144351451.png" alt="image-20200327144351451"></p>
+<p><img src="/2020/03/28/JS-%E9%97%AD%E5%8C%85/images/JS-%E9%97%AD%E5%8C%85/image-20200327144351451.png" alt="image-20200327144351451"></p>
 <p>此时有两个词法环境：内部一个（用于函数调用）和外部一个（全局）。内部词法环境引用了 <code>outer</code>。</p>
 <p><strong>当代码要访问一个变量时 —— 首先会搜索内部词法环境，然后搜索外部环境，然后搜索更外部的环境，以此类推，直到全局词法环境。</strong></p>
 <p>如果在任何地方都找不到这个变量，那么在严格模式下会报错，在非严格模式下，为了向后兼容，则会在全局环境创建一个未赋值的变量。</p>
 <h4 id="返回函数"><a href="#返回函数" class="headerlink" title="返回函数"></a>返回函数</h4><p>🌰</p>
-<p><img src="../images/JS-%E9%97%AD%E5%8C%85/image-20200327145816027.png" alt="image-20200327145816027"></p>
+<p><img src="/2020/03/28/JS-%E9%97%AD%E5%8C%85/images/JS-%E9%97%AD%E5%8C%85/image-20200327145816027.png" alt="image-20200327145816027"></p>
 <p>此时有两个词法环境，一个全局词法环境，一个是 <code>makeCounter()</code> 被调用时产生的。</p>
 <p>所有的函数都有一个内置属性 <code>[[Environment]]</code>，这个属性指向创建这个函数的词法环境。即 <code>Counter.[[Environment]]</code> 指向 <code>{count: 0}</code> 词法环境。</p>
 <p>当调用 <code>counter()</code> 时，会为该调用创建一个新的词法环境，并且根据 <code>counter.[[Environment]]</code> 获取到它的外部词法环境引用。</p>
-<p><img src="../images/JS-%E9%97%AD%E5%8C%85/image-20200327153244764.png" alt="image-20200327153244764"></p>
+<p><img src="/2020/03/28/JS-%E9%97%AD%E5%8C%85/images/JS-%E9%97%AD%E5%8C%85/image-20200327153244764.png" alt="image-20200327153244764"></p>
 <p>并且在变量所在的词法环境中修改变量的值。</p>
 <h3 id="闭包-Closure"><a href="#闭包-Closure" class="headerlink" title="闭包 Closure"></a>闭包 Closure</h3><p>闭包是指内部函数总是可以访问它所在的外部函数中声明的变量和参数，即使在它外部函数被返回之后。在 JS 中除 <code>new Function</code> 语法外的所有函数都是天生闭包。 这是因为 JavaScript 中的函数会自动通过隐藏的 <code>[[Environment]]</code> 属性记住它们被创建的位置，所以它们都可以访问外部变量。</p>
 <p>在 JS 中用 <code>new Function</code> 创建的函数的 <code>[[Environment]]</code> 属性指向的是全局词法环境，而不是函数所在的外部词法环境。因此，不能在 <code>new Function</code> 中直接使用外部变量，需要显式地参数传值，这样可以降低代码出错的可能，避免了使用压缩程序而产生冲突的问题。</p>
@@ -376,7 +376,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-count">7</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
