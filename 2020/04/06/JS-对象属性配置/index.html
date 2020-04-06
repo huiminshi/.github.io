@@ -28,7 +28,7 @@
 <meta property="og:description" content="属性标志对象属性除了 value，还有以下三个特殊的属性：  writable ：为 true 的话表示只可以被改变，否则该对象为只读对象； enumerable ：为 true 表示可枚举； configurable ：为 true 表示该对象属性可被删除和修改。  在创建对象时，默认这些属性都为 true。 🌰 1234567891011let user &#x3D; &amp;#123;    name :">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-04-06T11:22:00.000Z">
-<meta property="article:modified_time" content="2020-04-06T11:23:19.976Z">
+<meta property="article:modified_time" content="2020-04-06T11:27:23.612Z">
 <meta property="article:author" content="Aviva">
 <meta property="article:tag" content="JavaScript">
 <meta name="twitter:card" content="summary">
@@ -173,7 +173,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2020-04-06 19:22:00 / Modified: 19:23:19" itemprop="dateCreated datePublished" datetime="2020-04-06T19:22:00+08:00">2020-04-06</time>
+              <time title="Created: 2020-04-06 19:22:00 / Modified: 19:27:23" itemprop="dateCreated datePublished" datetime="2020-04-06T19:22:00+08:00">2020-04-06</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -276,6 +276,7 @@
 <p>🌰 使用 <code>defineProperty</code> 创建 <code>fullName</code> 访问器</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.defineProperty(user, <span class="string">'fullName'</span>, &#123;</span><br><span class="line">    <span class="keyword">get</span>() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;<span class="keyword">this</span>,name&#125;</span> <span class="subst">$&#123;<span class="keyword">this</span>.surname&#125;</span>`</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="keyword">set</span>(value) &#123;</span><br><span class="line">        [<span class="keyword">this</span>.name, <span class="keyword">this</span>.surname] = value.split(<span class="string">' '</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
+<p>📖：<a href="https://javascript.info/object-properties" target="_blank" rel="noopener">Object properties configuration</a></p>
 
     </div>
 
