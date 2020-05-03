@@ -28,7 +28,7 @@
 <meta property="og:description" content="属性标志对象属性除了 value，还有以下三个特殊的属性：  writable ：为 true 的话表示只可以被改变，否则该对象为只读对象； enumerable ：为 true 表示可枚举； configurable ：为 true 表示该对象属性可被删除和修改。  在创建对象时，默认这些属性都为 true。 🌰 1234567891011let user &#x3D; &amp;#123;    name :">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-04-06T11:22:00.000Z">
-<meta property="article:modified_time" content="2020-04-06T11:27:23.612Z">
+<meta property="article:modified_time" content="2020-04-06T12:03:54.000Z">
 <meta property="article:author" content="Aviva">
 <meta property="article:tag" content="JavaScript">
 <meta name="twitter:card" content="summary">
@@ -173,7 +173,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2020-04-06 19:22:00 / Modified: 19:27:23" itemprop="dateCreated datePublished" datetime="2020-04-06T19:22:00+08:00">2020-04-06</time>
+              <time title="Created: 2020-04-06 19:22:00 / Modified: 20:03:54" itemprop="dateCreated datePublished" datetime="2020-04-06T19:22:00+08:00">2020-04-06</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -276,6 +276,13 @@
 <p>🌰 使用 <code>defineProperty</code> 创建 <code>fullName</code> 访问器</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.defineProperty(user, <span class="string">'fullName'</span>, &#123;</span><br><span class="line">    <span class="keyword">get</span>() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;<span class="keyword">this</span>,name&#125;</span> <span class="subst">$&#123;<span class="keyword">this</span>.surname&#125;</span>`</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="keyword">set</span>(value) &#123;</span><br><span class="line">        [<span class="keyword">this</span>.name, <span class="keyword">this</span>.surname] = value.split(<span class="string">' '</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
+<p>在原型继承中修改父元素的访问器属性时，可以进行写操作，因为访问器属性实际上是函数的形式，所以当进行写操作时与调用函数一样。</p>
+<p>🌰 以下例子中如果 <code>fullName</code> 是数据属性，则不能修改父元素的这个属性</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> user = &#123;</span><br><span class="line">  name: <span class="string">"John"</span>,</span><br><span class="line">  surname: <span class="string">"Smith"</span>,</span><br><span class="line"></span><br><span class="line">  <span class="keyword">set</span> fullName(value) &#123;</span><br><span class="line">    [<span class="keyword">this</span>.name, <span class="keyword">this</span>.surname] = value.split(<span class="string">" "</span>);</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="keyword">get</span> fullName() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span> <span class="subst">$&#123;<span class="keyword">this</span>.surname&#125;</span>`</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> admin = &#123;</span><br><span class="line">  __proto__: user,</span><br><span class="line">  isAdmin: <span class="literal">true</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(admin.fullName); <span class="comment">// John Smith</span></span><br><span class="line"></span><br><span class="line">admin.fullName = <span class="string">"Alice Cooper"</span>; </span><br><span class="line"><span class="built_in">console</span>.log(user.fullName);<span class="comment">// John Smith</span></span><br><span class="line"><span class="built_in">console</span>.log(admin.fullName);<span class="comment">// Alice Cooper</span></span><br></pre></td></tr></table></figure>
+
+<p>🌰</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// animal has methods</span></span><br><span class="line"><span class="keyword">let</span> animal = &#123;</span><br><span class="line">  walk() &#123;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="keyword">this</span>.isSleeping) &#123;</span><br><span class="line">      alert(<span class="string">`I walk`</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  sleep() &#123;</span><br><span class="line">    <span class="keyword">this</span>.isSleeping = <span class="literal">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> rabbit = &#123;</span><br><span class="line">  name: <span class="string">"White Rabbit"</span>,</span><br><span class="line">  __proto__: animal</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// modifies rabbit.isSleeping</span></span><br><span class="line">rabbit.sleep();</span><br><span class="line"></span><br><span class="line">alert(rabbit.isSleeping); <span class="comment">// true</span></span><br><span class="line">alert(animal.isSleeping); <span class="comment">// undefined (no such property in the prototype)</span></span><br></pre></td></tr></table></figure>
+
 <p>📖：<a href="https://javascript.info/object-properties" target="_blank" rel="noopener">Object properties configuration</a></p>
 
     </div>
@@ -298,7 +305,10 @@
     <a href="/2020/04/01/JS-%E7%BB%A7%E6%89%BF/" rel="prev" title="JS📝 继承">
       <i class="fa fa-chevron-left"></i> JS📝 继承
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2020/04/18/Hexo%20%E5%8D%9A%E5%AE%A2%E5%A4%87%E5%BF%98%E5%BD%95/" rel="next" title="Hexo 博客备忘录">
+      Hexo 博客备忘录 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -374,7 +384,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-count">8</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
